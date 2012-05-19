@@ -1253,7 +1253,7 @@ public class Camera {
         if (mFaceDetectionRunning) {
             throw new RuntimeException("Face detection is already running");
         }
-        _startFaceDetection(CAMERA_FACE_DETECTION_HW);
+        //_startFaceDetection(CAMERA_FACE_DETECTION_HW);
         mFaceDetectionRunning = true;
     }
 
