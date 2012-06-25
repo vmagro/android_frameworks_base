@@ -1123,11 +1123,18 @@ void EventHub::loadConfigurationLocked(Device* device) {
 status_t EventHub::loadVirtualKeyMapLocked(Device* device) {
     // The virtual key map is supplied by the kernel as a system board property file.
     String8 path;
-    path.append("/system/usr/keylayout/virtualkeys");
-    //path.append("/sys/board_properties/virtualkeys.");
-    //path.append(device->identifier.name);
+    if(access("/system/usr/keylayout/virtualkeys", 0) == -1){
+	path.append("/sys/board_properties/virtualkeys.");
+	path.append(device->identifier.name);
+    }
+    else
+	path.append("/system/usr/keylayout/virtualkeys");
     if (access(path.string(), R_OK)) {
+<<<<<<< HEAD
         return NAME_NOT_FOUND;
+=======
+	return NAME_NOT_FOUND;
+>>>>>>> 2d664fc... libinput: allow the ability to provide a custom virtualkeys map for soft buttons, stored in /system/usr/keylayout/virtualkeys, without modifying the kernel
     }
     return VirtualKeyMap::load(path, &device->virtualKeyMap);
 }
